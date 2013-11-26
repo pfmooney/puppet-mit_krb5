@@ -71,9 +71,6 @@
 #
 # Copyright 2013 Patrick Mooney.
 #
-
-
-
 define mit_krb5::realm(
   $kdc                 = '',
   $admin_server        = '',
@@ -82,7 +79,7 @@ define mit_krb5::realm(
   $v4_instance_convert = '',
   $v4_realm            = '',
   $auth_to_local_names = '',
-  $auth_to_local       = ''
+  $auth_to_local       = '',
 ) {
   include mit_krb5
   ensure_resource('concat::fragment', 'mit_krb5::realm_header', {

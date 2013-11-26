@@ -34,7 +34,6 @@
 #
 # Copyright 2013 Patrick Mooney.
 #
-
 class mit_krb5::logging(
   $default      = '',
   $admin_server = '',

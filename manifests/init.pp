@@ -238,7 +238,7 @@ class mit_krb5(
   }
   concat::fragment { 'mit_krb5::libdefaults':
     target  => $krb5_conf_path,
-    order   => '00libdefaults',
+    order   => '01libdefaults',
     content => template('mit_krb5/libdefaults.erb'),
   }
   anchor { 'mit_krb5::end': }
@@ -247,4 +247,3 @@ class mit_krb5(
   Anchor['mit_krb5::begin'] -> Class['mit_krb5::install'] ->
     Concat[$krb5_conf_path] -> Anchor['mit_krb5::end']
 }
-

@@ -1,0 +1,56 @@
+[libdefaults]
+<% fields = [
+  'default_realm',
+  'default_keytab_name',
+  'default_tgs_enctypes',
+  'default_tkt_enctypes',
+  'permitted_enctypes',
+  'allow_weak_crypto',
+  'clockskew',
+  'ignore_acceptor_hostname',
+  'k5login_authoritative',
+  'k5login_directory',
+  'kdc_timesync',
+  'kdc_req_checksum_type',
+  'ap_req_checksum_type',
+  'safe_checksum_type',
+  'preferred_preauth_types',
+  'ccache_type',
+  'dns_lookup_kdc',
+  'dns_lookup_realm',
+  'dns_fallback',
+  'realm_try_domains',
+  'extra_addresses',
+  'udp_preference_limit',
+  'verify_ap_req_nofail',
+  'ticket_lifetime',
+  'renew_lifetime',
+  'noaddresses',
+  'forwardable',
+  'proxiable',
+  'rdns',
+  'plugin_base_dir',
+]
+array_fields = [
+  'default_tgs_enctypes',
+  'default_tkt_enctypes',
+  'permitted_enctypes',
+  'extra_addresses',
+]
+output = []
+fields.each do |k|
+  if scope.include?(k)
+    value = scope[k]
+    if array_fields.include?(k) and value.respond_to?('each')
+      value = value.join(',')
+    end
+    if not value.empty?
+      output.push([k, value])
+    end
+  end
+end
+output.each do |tuple|
+-%>
+    <%= tuple[0] %> = <%= tuple[1] %>
+<% end -%>
+

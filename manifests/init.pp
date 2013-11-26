@@ -231,7 +231,6 @@ class mit_krb5(
   anchor { 'mit_krb5::begin': }
   include mit_krb5::install
   concat { $krb5_conf_path:
-    ensure => file,
     owner  => $krb5_conf_owner,
     group  => $krb5_conf_group,
     mode   => $krb5_conf_mode,

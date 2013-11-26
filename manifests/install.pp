@@ -14,6 +14,6 @@
 
 class mit_krb5::install {
   # FIXME: Write conditional for non-redhat OSes
-  $packages = ['krb5-workstaion']
+  $packages = ['krb5-workstation']
   ensure_packages($packages)
 }

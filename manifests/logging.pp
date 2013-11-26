@@ -4,24 +4,26 @@
 #
 # === Parameters
 #
+# As in the main class, only specified parameters will appear in the
+# configuration.  System defaults are used for absent parameters.
+#
 # [*admin_server*]
 #   These entries specify how the administrative server is to perform its
-#   logging. (Default: FILE:/var/log/kadmind.log)
+#   logging.
 #
 # [*default*]
 #   These entries specify how to perform logging in the absence of explicit
-#   specifications otherwise.  (Default: FILE:/var/log/krb5libs.log)
+#   specifications otherwise.
 #
 # [*kdc*]
 #   These entries specify how the KDC is to perform its logging.
-#   (Default: FILE:/var/log/krb5kdc.log)
 #
 # === Examples
 #
 #  class { 'mit_krb5::logging':
-#    default      => 'FILE:/custom/krb5libs.log',
-#    admin_server => 'FILE:/custom/kadmind.log',
-#    kdc          => 'FILE:/custom/krb5kdc.log'
+#    default      = 'FILE:/var/log/krb5libs.log',
+#    admin_server = 'FILE:/var/log/kadmind.log',
+#    kdc          = 'FILE:/var/log/krb5kdc.log'
 #  }
 #
 # === Authors
@@ -34,13 +36,13 @@
 #
 
 class mit_krb5::logging(
-  $default      = 'FILE:/var/log/krb5libs.log',
-  $admin_server = 'FILE:/var/log/kadmind.log',
-  $kdc          = 'FILE:/var/log/krb5kdc.log'
+  $default      = '',
+  $admin_server = '',
+  $kdc          = ''
 ) {
   include mit_krb5
   concat::fragment { 'mit_krb5::logging':
-    target  => $krb5_conf_path,
+    target  => $mit_krb5::krb5_conf_path,
     order   => '00logging',
     content => template('mit_krb5/logging.erb'),
   }

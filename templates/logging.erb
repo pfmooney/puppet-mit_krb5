@@ -1,0 +1,7 @@
+[logging]
+<% fields = ['default', 'admin_server', 'kdc']
+scope.to_hash.each do |k, v|
+  if fields.include? k and not v.empty? then -%>
+    <%= k %> = <%= v %>
+<%  end -%>
+<% end %>

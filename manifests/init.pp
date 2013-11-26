@@ -193,7 +193,7 @@
 # Copyright 2013 Patrick Mooney.
 #
 class mit_krb5(
-  $default_realm,
+  $default_realm            = '',
   $default_keytab_name      = '',
   $default_tgs_enctypes     = [],
   $default_tkt_enctypes     = [],
@@ -228,6 +228,51 @@ class mit_krb5(
   $krb5_conf_group          = 'root',
   $krb5_conf_mode           = '0444',
 ) {
+  # SECTION: Parameter validation {
+  validate_string(
+    $default_realm,
+    $default_keytab_name,
+    $allow_weak_crypto,
+    $clockskew,
+    $ignore_acceptor_hostname,
+    $k5login_authoritative,
+    $k5login_directory,
+    $kdc_timesync,
+    $kdc_req_checksum_type,
+    $ap_req_checksum_type,
+    $safe_checksum_type,
+    $preferred_preauth_types,
+    $ccache_type,
+    $dns_lookup_kdc,
+    $dns_lookup_realm,
+    $dns_fallback,
+    $realm_try_domains,
+    $udp_preference_limit,
+    $verify_ap_req_nofail,
+    $ticket_lifetime,
+    $renew_lifetime,
+    $noaddresses,
+    $forwardable,
+    $proxiable,
+    $rdns,
+    $plugin_base_dir,
+    $krb5_conf_path,
+    $krb5_conf_owner,
+    $krb5_conf_group,
+    $krb5_conf_mode
+  )
+  validate_array(
+    $default_tgs_enctypes,
+    $default_tkt_enctypes,
+    $permitted_enctypes,
+    $extra_addresses
+  )
+  if $default_realm == '' {
+    fail('default_realm must be set manually or via Hiera')
+  }
+  # END Parameter validation }
+
+  # SECTION: Resource creation {
   anchor { 'mit_krb5::begin': }
   include mit_krb5::install
   concat { $krb5_conf_path:
@@ -241,8 +286,10 @@ class mit_krb5(
     content => template('mit_krb5/libdefaults.erb'),
   }
   anchor { 'mit_krb5::end': }
+  # END Resource creation }
 
-  # Resource ordering
+  # SECTION: Resource ordering {
   Anchor['mit_krb5::begin'] -> Class['mit_krb5::install'] ->
     Concat[$krb5_conf_path] -> Anchor['mit_krb5::end']
+  # END Resource ordering }
 }

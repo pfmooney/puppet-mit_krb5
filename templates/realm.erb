@@ -1,4 +1,3 @@
-    <%= @title %> = {
 <% fields = [
     'kdc',
     'admin_server',
@@ -9,23 +8,23 @@
     'auth_to_local_names',
     'auth_to_local'
 ]
+array_fields = ['kdc', 'admin_server']
 output = []
 fields.each do |k|
   if scope.include?(k)
     value = scope[k]
-    if k == 'kdc' and value.respond_to?('each')
-      # Allow multiple KDCs via array
-      value.each do |kdc|
-        output.push([k, kdc])
+    if array_fields.include? k and value.respond_to?('each')
+      # Allow multiple servers via array
+      value.each do |v|
+        output.push("#{k} = #{v}")
       end
     elsif not value.empty?
-      output.push([k, value])
+      output.push("#{k} = #{value}")
     end
   end
 end
-output.each do |tuple|
 -%>
-        <%= tuple[0] %> = <%= tuple[1] %>
-<% end -%>
+    <%= @title %> = {
+        <%= output.join("\n        ") %>
     }
 

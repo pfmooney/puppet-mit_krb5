@@ -1,8 +1,20 @@
+<% fields = ['default', 'admin_server', 'kdc']
+output = []
+fields.each do |k|
+  if scope.include? k and not scope[k].empty?
+    value = scope[k]
+    # Preserve array-type values
+    if value.respond_to?('each')
+      value.each do |v|
+        output.push("#{k} = #{v}")
+      end
+    else
+      output.push("#{k} = #{value}")
+    end
+  end
+end
+-%>
 [logging]
-<%
-    fields = ['default', 'admin_server', 'kdc']
-    fields.each do |k|
-    if scope[k] and not scope[k].empty? then -%>
-    <%= k %> = <%= scope[k] %>
-<%    end -%>
-<%  end %>
+<% if not output.empty? -%>
+    <%= output.join("\n    ") %>
+<% end %>

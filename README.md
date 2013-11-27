@@ -116,16 +116,42 @@ Resource to add entries to \[domain\_realm\] section.
 ```puppet
 class { 'mit_krb5':
   default_realm     => 'INSECURE.LOCAL',
-  allowed_enctypes  => ['des-cbc-crc', 'des-cbc-md5'],
+  permitted_enctypes  => ['des-cbc-crc', 'des-cbc-md5'],
   allow_weak_crypto => true
+}
+class { 'mit_krb5::logging':
+  default => ['FILE:/var/log/krb5libs.log', 'SYSLOG']
 }
 mit_krb5::realm { 'INSECURE.LOCAL':
   kdc          => ['kdc1.insecure.local', 'kdc2.insecure.local'],
   admin_server => 'kpasswd.insecure.local',
 }
-mit_krb::domain_realm { 'INSECURE.LOCAL':
-  domains => ['SUB.INSECURE.LOCAL']
+mit_krb5::domain_realm { 'INSECURE.LOCAL':
+  domains => ['insecure.local', '.insecure.local']
 }
+```
+
+Yields the following krb5.conf:
+```
+[logging]
+    default = FILE:/var/log/krb5libs.log
+    default = SYSLOG
+
+[libdefaults]
+    default_realm = INSECURE.LOCAL
+    permitted_enctypes = des-cbc-crc des-cbc-md5
+    allow_weak_crypto = true
+
+[realms]
+    INSECURE.LOCAL = {
+        kdc = kdc1.insecure.local
+        kdc = kdc2.insecure.local
+        admin_server = kpasswd.insecure.local
+    }
+
+[domain_realm]
+    insecure.local = INSECURE.LOCAL
+    .insecure.local = INSECURE.LOCAL
 ```
 
 # Limitations

@@ -30,18 +30,13 @@
   'rdns',
   'plugin_base_dir',
 ]
-array_fields = [
-  'default_tgs_enctypes',
-  'default_tkt_enctypes',
-  'permitted_enctypes',
-  'extra_addresses',
-]
 output = []
 fields.each do |key|
   next if not scope.include?(key)
   value = scope[key]
-  if array_fields.include?(key)
-    value = value.join(' ') if value.respond_to?('each')
+  if value.respond_to?('each')
+    # Use space delimiting for array-type values
+    value = value.flatten.join(' ')
   else
     value = value.to_s
   end

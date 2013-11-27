@@ -1,4 +1,3 @@
-[libdefaults]
 <% fields = [
   'default_realm',
   'default_keytab_name',
@@ -38,19 +37,18 @@ array_fields = [
   'extra_addresses',
 ]
 output = []
-fields.each do |k|
-  if scope.include?(k)
-    value = scope[k]
-    if array_fields.include?(k) and value.respond_to?('each')
-      value = value.join(',')
-    end
-    if not value.empty?
-      output.push([k, value])
-    end
+fields.each do |key|
+  next if not scope.include?(key)
+  value = scope[key]
+  if array_fields.include?(key)
+    value = value.join(' ') if value.respond_to?('each')
+  else
+    value = value.to_s
   end
+  output.push("#{key} = #{value}") if not value.empty?
 end
-output.each do |tuple|
 -%>
-    <%= tuple[0] %> = <%= tuple[1] %>
-<% end -%>
-
+[libdefaults]
+<% if not output.empty? -%>
+    <%= output.join("\n    ") %>
+<% end %>

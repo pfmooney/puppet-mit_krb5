@@ -232,10 +232,7 @@ class mit_krb5(
   validate_string(
     $default_realm,
     $default_keytab_name,
-    $allow_weak_crypto,
     $clockskew,
-    $ignore_acceptor_hostname,
-    $k5login_authoritative,
     $k5login_directory,
     $kdc_timesync,
     $kdc_req_checksum_type,
@@ -243,24 +240,18 @@ class mit_krb5(
     $safe_checksum_type,
     $preferred_preauth_types,
     $ccache_type,
-    $dns_lookup_kdc,
-    $dns_lookup_realm,
-    $dns_fallback,
     $realm_try_domains,
     $udp_preference_limit,
-    $verify_ap_req_nofail,
     $ticket_lifetime,
     $renew_lifetime,
-    $noaddresses,
-    $forwardable,
-    $proxiable,
-    $rdns,
     $plugin_base_dir,
     $krb5_conf_path,
     $krb5_conf_owner,
     $krb5_conf_group,
     $krb5_conf_mode
   )
+  # Boolean-type parameters are not type-validated at this time.
+  # This allows true/false/'yes'/'no'/'1'/0' to be used.
   validate_array(
     $default_tgs_enctypes,
     $default_tkt_enctypes,

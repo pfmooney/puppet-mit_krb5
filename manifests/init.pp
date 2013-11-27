@@ -252,12 +252,9 @@ class mit_krb5(
   )
   # Boolean-type parameters are not type-validated at this time.
   # This allows true/false/'yes'/'no'/'1'/0' to be used.
-  validate_array(
-    $default_tgs_enctypes,
-    $default_tkt_enctypes,
-    $permitted_enctypes,
-    $extra_addresses
-  )
+  #
+  # Array-type fields are not validated to allow single items via strings or
+  # multiple items via arrays
   if $default_realm == '' {
     fail('default_realm must be set manually or via Hiera')
   }

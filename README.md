@@ -14,6 +14,7 @@
 6. [License](#license)
 7. [Development](#development)
 
+
 # Overview
 
 This Puppet module is designed to facilitate the installation and configuration of [MIT Kerberos](http://web.mit.edu/kerberos/).  The primary scope includes installing the user utilities (kinit, etc) on the system and populating krb5.conf with the appropriate sections.
@@ -22,8 +23,10 @@ Other tasks such as setting up KDC services are **not covered**.
 
 
 ## Dependencies
+
 - [puppetlabs/stdlib](https://github.com/puppetlabs/puppetlabs-stdlib)
 - [puppetlabs/concat](https://github.com/puppetlabs/puppetlabs-concat)
+
 
 # Classes and Resources
 
@@ -73,10 +76,9 @@ Top-level class that installs MIT Kerberos and controls krb5.conf file.  Class p
 - krb5\_conf\_group - Group of krb5.conf (default: root)
 - krb5\_conf\_mode - Mode of krb5.conf (default: 0444) 
 
-
 ## mit\_krb5::realm
 
-Resource to add a realm except to the \[realms\] section.
+Resource to add entries to the \[realms\] section.
 
 Realm name is specified by resource title
 
@@ -154,6 +156,7 @@ Yields the following krb5.conf:
     .insecure.local = INSECURE.LOCAL
 ```
 
+
 # Limitations
 
 Configuration sections other than those listed above are not yet supported.
@@ -168,9 +171,11 @@ This includes:
 
 Stub classes for those sections exist but will throw an error.
 
+
 # License
 
 Apache License, Version 2.0
+
 
 # Development
 

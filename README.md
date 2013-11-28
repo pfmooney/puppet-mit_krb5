@@ -69,7 +69,7 @@ Top-level class that installs MIT Kerberos and controls krb5.conf file.  Class p
 - rdns
 - plugin\_base\_dir
 
-### Non-krb5.conf parameters
+### File parameters
 
 - krb5\_conf\_path - Path to krb5.conf (default: /etc/krb5.conf)
 - krb5\_conf\_owner - Owner of krb5.conf (default: root)
@@ -84,8 +84,8 @@ Realm name is specified by resource title
 
 ### Parameters from realm section
 
-- kdc - Arrays allowed
-- admin\_server - Arrays allowed
+- kdc - (arrays allowed)
+- admin\_server - (arrays allowed)
 - database\_module
 - default\_domain
 - v4\_instance\_convert
@@ -117,9 +117,9 @@ Resource to add entries to \[domain\_realm\] section.
 
 ```puppet
 class { 'mit_krb5':
-  default_realm     => 'INSECURE.LOCAL',
-  permitted_enctypes  => ['des-cbc-crc', 'des-cbc-md5'],
-  allow_weak_crypto => true
+  default_realm      => 'INSECURE.LOCAL',
+  permitted_enctypes => ['des-cbc-crc', 'des-cbc-md5'],
+  allow_weak_crypto  => true
 }
 class { 'mit_krb5::logging':
   default => ['FILE:/var/log/krb5libs.log', 'SYSLOG']

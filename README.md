@@ -6,6 +6,7 @@
 2. [Dependencies](#dependencies)
 3. [Classes and Resources](#classes-and-resources)
     - [mit\_krb5](#mit_krb5)
+    - [mit\_krb5::install](#mit_krb5install)
     - [mit\_krb5::realm](#mit_krb5realm)
     - [mit\_krb5::logging](#mit_krb5logging)
     - [mit\_krb5::domain\_realm](#mit_krb5domain_realm)
@@ -75,6 +76,16 @@ Top-level class that installs MIT Kerberos and controls krb5.conf file.  Class p
 - krb5\_conf\_owner - Owner of krb5.conf (default: root)
 - krb5\_conf\_group - Group of krb5.conf (default: root)
 - krb5\_conf\_mode - Mode of krb5.conf (default: 0444) 
+
+## mit\_krb5::install
+
+Class to install Kerberos client package(s).
+This class is included from mit\_krb5.  If you wish to set the packages
+parameter, do so before declaring/including mit\_krb5 or use hiera.
+
+### Parameters
+
+- packages - Override facter-derived defaults for Kerberos packages (default: undef) 
 
 ## mit\_krb5::realm
 

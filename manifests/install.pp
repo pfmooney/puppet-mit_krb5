@@ -10,8 +10,23 @@
 #
 # Copyright 2013 Patrick Mooney.
 #
-class mit_krb5::install {
-  # FIXME: Write conditional for non-redhat OSes
-  $packages = ['krb5-workstation']
-  ensure_packages($packages)
+class mit_krb5::install($packages = undef) {
+  if $packages {
+    if is_array($packages) {
+      $install = flatten($packages)
+    } else { 
+      $install = [$packages]
+    }
+  } else {
+    # OS-specific defaults
+    $install = $::osfamily ? {
+      'Archlinux' => ['krb5'],
+      'Debian'    => ['krb5-user'],
+      'Gentoo'    => ['mit-krb5'],
+      'Mandrake'  => ['krb5-workstation'],
+      'RedHat'    => ['krb5-workstation'],
+      'Suse'      => ['krb5-client'],
+    }
+  }
+  ensure_packages($install)
 }

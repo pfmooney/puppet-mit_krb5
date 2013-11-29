@@ -4,13 +4,13 @@
 
 1. [Overview](#overview)
 2. [Dependencies](#dependencies)
-3. [Classes and Resources](#classes-and-resources)
+3. [Examples](#examples)
+4. [Classes and Resources](#classes-and-resources)
     - [mit\_krb5](#mit_krb5)
     - [mit\_krb5::install](#mit_krb5install)
     - [mit\_krb5::realm](#mit_krb5realm)
     - [mit\_krb5::logging](#mit_krb5logging)
     - [mit\_krb5::domain\_realm](#mit_krb5domain_realm)
-4. [Examples](#examples)
 5. [Limitations](#limitations)
 6. [License](#license)
 7. [Development](#development)
@@ -27,6 +27,50 @@ Other tasks such as setting up KDC services are **not covered**.
 
 - [puppetlabs/stdlib](https://github.com/puppetlabs/puppetlabs-stdlib)
 - [puppetlabs/concat](https://github.com/puppetlabs/puppetlabs-concat)
+
+
+# Examples
+
+```puppet
+class { 'mit_krb5':
+  default_realm      => 'INSECURE.LOCAL',
+  permitted_enctypes => ['des-cbc-crc', 'des-cbc-md5'],
+  allow_weak_crypto  => true
+}
+class { 'mit_krb5::logging':
+  default => ['FILE:/var/log/krb5libs.log', 'SYSLOG']
+}
+mit_krb5::realm { 'INSECURE.LOCAL':
+  kdc          => ['kdc1.insecure.local', 'kdc2.insecure.local'],
+  admin_server => 'kpasswd.insecure.local',
+}
+mit_krb5::domain_realm { 'INSECURE.LOCAL':
+  domains => ['insecure.local', '.insecure.local']
+}
+```
+
+Yields the following krb5.conf:
+```
+[logging]
+    default = FILE:/var/log/krb5libs.log
+    default = SYSLOG
+
+[libdefaults]
+    default_realm = INSECURE.LOCAL
+    permitted_enctypes = des-cbc-crc des-cbc-md5
+    allow_weak_crypto = true
+
+[realms]
+    INSECURE.LOCAL = {
+        kdc = kdc1.insecure.local
+        kdc = kdc2.insecure.local
+        admin_server = kpasswd.insecure.local
+    }
+
+[domain_realm]
+    insecure.local = INSECURE.LOCAL
+    .insecure.local = INSECURE.LOCAL
+```
 
 
 # Classes and Resources
@@ -122,50 +166,6 @@ Resource to add entries to \[domain\_realm\] section.
 
  - domains - Domains to be mapped into realm - (arrays allowed)
  - realm - Realm to map into - (default: resource title)
-
-
-# Examples
-
-```puppet
-class { 'mit_krb5':
-  default_realm      => 'INSECURE.LOCAL',
-  permitted_enctypes => ['des-cbc-crc', 'des-cbc-md5'],
-  allow_weak_crypto  => true
-}
-class { 'mit_krb5::logging':
-  default => ['FILE:/var/log/krb5libs.log', 'SYSLOG']
-}
-mit_krb5::realm { 'INSECURE.LOCAL':
-  kdc          => ['kdc1.insecure.local', 'kdc2.insecure.local'],
-  admin_server => 'kpasswd.insecure.local',
-}
-mit_krb5::domain_realm { 'INSECURE.LOCAL':
-  domains => ['insecure.local', '.insecure.local']
-}
-```
-
-Yields the following krb5.conf:
-```
-[logging]
-    default = FILE:/var/log/krb5libs.log
-    default = SYSLOG
-
-[libdefaults]
-    default_realm = INSECURE.LOCAL
-    permitted_enctypes = des-cbc-crc des-cbc-md5
-    allow_weak_crypto = true
-
-[realms]
-    INSECURE.LOCAL = {
-        kdc = kdc1.insecure.local
-        kdc = kdc2.insecure.local
-        admin_server = kpasswd.insecure.local
-    }
-
-[domain_realm]
-    insecure.local = INSECURE.LOCAL
-    .insecure.local = INSECURE.LOCAL
-```
 
 
 # Limitations

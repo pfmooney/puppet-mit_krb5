@@ -14,7 +14,7 @@ class mit_krb5::install($packages = undef) {
   if $packages {
     if is_array($packages) {
       $install = flatten($packages)
-    } else { 
+    } else {
       $install = [$packages]
     }
   } else {

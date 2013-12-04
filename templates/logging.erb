@@ -5,7 +5,8 @@ fields.each do |k|
     value = scope[k]
     # Preserve array-type values
     if value.respond_to?('each')
-      value.flatten.each do |v|
+      value.flatten! if value.respond_to?('flatten')
+      value.each do |v|
         output.push("#{k} = #{v}")
       end
     else

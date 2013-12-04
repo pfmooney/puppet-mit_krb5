@@ -15,7 +15,8 @@ fields.each do |k|
     value = scope[k]
     if array_fields.include? k and value.respond_to?('each')
       # Allow multiple servers via array
-      value.flatten.each do |v|
+      value.flatten! if value.respond_to?('flatten')
+      value.each do |v|
         output.push("#{k} = #{v}")
       end
     elsif not value.empty?

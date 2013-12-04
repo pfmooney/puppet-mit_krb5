@@ -34,7 +34,7 @@ output = []
 fields.each do |key|
   next if not scope.include?(key)
   value = scope[key]
-  if value.respond_to?('each')
+  if value.respond_to?('join')
     # Use space delimiting for array-type values
     value = value.flatten.join(' ')
   else

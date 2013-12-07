@@ -1,5 +1,5 @@
 name    'pfmooney-mit_krb5'
-version '0.0.3'
+version '0.0.4'
 source 'git://github.com/pfmooney/puppet-mit_krb5.git'
 author 'Patrick Mooney <patrick.f.mooney@gmail.com>'
 license 'Apache License, Version 2.0'

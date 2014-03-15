@@ -1,6 +1,10 @@
 <% fields = ['default', 'admin_server', 'kdc']
 output = []
 scope_hash = scope.to_hash
+# Handle puppet 2.x issue with parameters named 'default'
+if scope_hash.include? 'defaults' and not scope_hash['defaults'].empty?
+  scope_hash['default'] = scope_hash['defaults']
+end
 fields.each do |k|
   if scope_hash.include? k and not scope_hash[k].empty?
     value = scope_hash[k]

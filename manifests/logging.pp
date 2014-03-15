@@ -18,6 +18,10 @@
 # [*kdc*]
 #   These entries specify how the KDC is to perform its logging.
 #
+# [*defaults*]
+#   Work around the Puppet 2.x limitation of class variables named 'default'.
+#   This will override the value of the 'default' parameter, if present.
+#
 # === Examples
 #
 #  class { 'mit_krb5::logging':
@@ -37,7 +41,8 @@
 class mit_krb5::logging(
   $default      = '',
   $admin_server = '',
-  $kdc          = ''
+  $kdc          = '',
+  $defaults     = '',
 ) {
   include mit_krb5
   concat::fragment { 'mit_krb5::logging':

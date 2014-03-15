@@ -31,9 +31,10 @@
   'plugin_base_dir',
 ]
 output = []
+scope_hash = scope.to_hash
 fields.each do |key|
-  next if not scope.include?(key)
-  value = scope[key]
+  next if not scope_hash.include?(key)
+  value = scope_hash[key]
   if value.respond_to?('join')
     # Use space delimiting for array-type values
     value = value.flatten.join(' ')

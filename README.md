@@ -72,6 +72,30 @@ Yields the following krb5.conf:
     .insecure.local = INSECURE.LOCAL
 ```
 
+Code such at this would mimic the example file shipped with CentOS/RHEL:
+```puppet
+class { 'mit_krb5::install': }
+class { 'mit_krb5':
+  default_realm    => 'EXAMPLE.COM',
+  dns_lookup_realm => false,
+  dns_lookup_kdc   => false,
+  ticket_lifetime  => '24h',
+  renew_lifetime   => '7d',
+  forwardable      => true,
+}
+class { 'mit_krb5::logging':
+  default      => 'FILE:/var/log/krb5libs.log',
+  kdc          => 'FILE:/var/log/krb5kdc.log',
+  admin_server => 'FILE:/var/log/kadmind.log'
+}
+mit_krb5::realm { 'EXAMPLE.COM':
+  kdc          => 'kerberos.example.com',
+  admin_server => 'kerberos.example.com'
+}
+mit_krb5::domain_realm { 'INSECURE.LOCAL':
+  domains => ['.example.com', 'example.com']
+}
+```
 
 # Classes and Resources
 
@@ -155,6 +179,7 @@ Class to configure \[logging\] section
 ### Parameters from logging section
 
 - default - (arrays allowed)
+- defaults - Replaces 'default' parameter (for use in Puppet 2.7)
 - admin\_server - (arrays allowed)
 - kdc - (arrays allowed)
 

@@ -79,6 +79,7 @@
 # === Authors
 #
 # Patrick Mooney <patrick.f.mooney@gmail.com>
+# Hristo Mohamed <hristo.mohamed@gmail.com>
 #
 # === Copyright
 #

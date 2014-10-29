@@ -33,10 +33,12 @@
 # === Authors
 #
 # Patrick Mooney <patrick.f.mooney@gmail.com>
+# Remi Ferrand <remi.ferrand_at_cc.in2p3.fr>
 #
 # === Copyright
 #
 # Copyright 2013 Patrick Mooney.
+# Copyright (c) IN2P3 Computing Centre, IN2P3, CNRS
 #
 class mit_krb5::logging(
   $default      = '',
@@ -44,7 +46,9 @@ class mit_krb5::logging(
   $kdc          = '',
   $defaults     = '',
 ) {
-  include mit_krb5
+
+  include ::mit_krb5
+  
   concat::fragment { 'mit_krb5::logging':
     target  => $mit_krb5::krb5_conf_path,
     order   => '00logging',

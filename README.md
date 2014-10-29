@@ -11,12 +11,15 @@
     - [mit\_krb5::realm](#mit_krb5realm)
     - [mit\_krb5::logging](#mit_krb5logging)
     - [mit\_krb5::domain\_realm](#mit_krb5domain_realm)
+    - [mit\_krb5::appdefaults](#mit_krb5appdefaults)
 5. [Limitations](#limitations)
 6. [License](#license)
 7. [Development](#development)
 
 
 # Overview
+
+This Puppet module was originaly created by Patrick Mooney (https://github.com/pfmooney/puppet-mit_krb5). The module was forked by CC-IN2P3 because P. Mooney couldn't provide active support anylonger. Patches from HristoMohamed (https://github.com/pfmooney/puppet-mit_krb5/pull/3) were integrated in the new release.
 
 This Puppet module is designed to facilitate the installation and configuration of [MIT Kerberos](http://web.mit.edu/kerberos/).  The primary scope includes installing the user utilities (kinit, etc) on the system and populating krb5.conf with the appropriate sections.
 
@@ -107,43 +110,43 @@ Top-level class that installs MIT Kerberos and controls krb5.conf file.  Class p
 
 ### Parameters from libdefaults section
 
-- default\_realm - **Must be set to non-empty**
-- default\_keytab\_name
-- default\_tgs\_enctypes
-- default\_tkt\_enctypes
-- permitted\_enctypes
-- allow\_weak\_crypto
-- clockskew
-- ignore\_acceptor\_hostname
-- k5login\_authoritative
-- k5login\_directory
-- kdc\_timesync
-- kdc\_req\_checksum\_type
-- ap\_req\_checksum\_type
-- safe\_checksum\_type
-- preferred\_preauth\_types
-- ccache\_type
-- dns\_lookup\_kdc
-- dns\_lookup\_realm
-- dns\_fallback
-- realm\_try\_domains
-- extra\_addresses
-- udp\_preference\_limit
-- verify\_ap\_req\_nofail
-- ticket\_lifetime
-- renew\_lifetime
-- noaddresses
-- forwardable
-- proxiable
-- rdns
-- plugin\_base\_dir
+- `default_realm` - **Must be set to non-empty**
+- `default_keytab_name`
+- `default_tgs_enctypes`
+- `default_tkt_enctypes`
+- `permitted_enctypes`
+- `allow_weak_crypto`
+- `clockskew`
+- `ignore_acceptor_hostname`
+- `k5login_authoritative`
+- `k5login_directory`
+- `kdc_timesync`
+- `kdc_req_checksum_type`
+- `ap_req_checksum_type`
+- `safe_checksum_type`
+- `preferred_preauth_types`
+- `ccache_type`
+- `dns_lookup_kdc`
+- `dns_lookup_realm`
+- `dns_fallback`
+- `realm_try_domains`
+- `extra_addresses`
+- `udp_preference_limit`
+- `verify_ap_req_nofail`
+- `ticket_lifetime`
+- `renew_lifetime`
+- `noaddresses`
+- `forwardable`
+- `proxiable`
+- `rdns`
+- `plugin_base_dir`
 
 ### File parameters
 
-- krb5\_conf\_path - Path to krb5.conf (default: /etc/krb5.conf)
-- krb5\_conf\_owner - Owner of krb5.conf (default: root)
-- krb5\_conf\_group - Group of krb5.conf (default: root)
-- krb5\_conf\_mode - Mode of krb5.conf (default: 0444) 
+- `krb5_conf_path` - Path to krb5.conf (default: /etc/krb5.conf)
+- `krb5_conf_owner` - Owner of krb5.conf (default: root)
+- `krb5_conf_group` - Group of krb5.conf (default: root)
+- `krb5_conf_mode` - Mode of krb5.conf (default: 0444) 
 
 ## mit\_krb5::install
 
@@ -153,57 +156,110 @@ parameter, do so before declaring/including mit\_krb5 or use hiera.
 
 ### Parameters
 
-- packages - Override facter-derived defaults for Kerberos packages (default: undef) 
+- `packages` - Override facter-derived defaults for Kerberos packages (default: undef) 
 
 ## mit\_krb5::realm
 
-Resource to add entries to the \[realms\] section.
+Resource to add entries to the `[realms]` section.
 
 Realm name is specified by resource title
 
 ### Parameters from realm section
 
-- kdc - (arrays allowed)
-- admin\_server - (arrays allowed)
-- database\_module
-- default\_domain
-- v4\_instance\_convert
-- v4\_realm
-- auth\_to\_local\_names
-- auth\_to\_local
+- `kdc` - (arrays allowed)
+- `admin_server` - (arrays allowed)
+- `database_module`
+- `default_domain`
+- `v4_instance_convert`
+- `v4_name converts`
+- `v4_realm`
+- `auth_to_local_names`
+- `auth_to_local`
 
 ## mit\_krb5::logging
 
-Class to configure \[logging\] section 
+Class to configure `[logging]` section 
 
 ### Parameters from logging section
 
-- default - (arrays allowed)
-- defaults - Replaces 'default' parameter (for use in Puppet 2.7)
-- admin\_server - (arrays allowed)
-- kdc - (arrays allowed)
+- `default` - (arrays allowed)
+- `defaults` - Replaces `default` parameter (for use in Puppet 2.7)
+- `admin_server` - (arrays allowed)
+- `kdc` - (arrays allowed)
 
 ## mit\_krb5::domain\_realm
 
-Resource to add entries to \[domain\_realm\] section.
+Resource to add entries to `[domain_realm]` section.
 
 ### Parameters
 
- - domains - Domains to be mapped into realm - (arrays allowed)
- - realm - Realm to map into - (default: resource title)
+ - `domains` - Domains to be mapped into realm - (arrays allowed)
+ - `realm` - Realm to map into - (default: resource title)
 
+## mit\_krb5::appdefaults
+
+Resource to add entries to `[appdefaults]` section.
+
+Currently, this module only supports this format of _appdefaults_:
+
+```
+application = {
+    option1 = value
+    option2 = value
+}
+```
+
+or 
+
+```
+realm = {
+    option = value
+}
+```
+
+### Parameters
+
+ - `debug`
+ - `ticket_lifetime`
+ - `renew_lifetime`
+ - `forwardable`
+ - `krb4_convert`
+ - `ignore_afs`
+
+### Example
+
+The following `appdefaults` section
+
+```
+[appdefaults]
+    EXAMPLE.ORG = {
+        debug = 
+        ticket_lifetime = 
+        renew_lifetime = 
+        forwardable = false
+        krb4_convert = 
+        ignore_afs = 
+    }
+```
+
+could be obtained with
+
+```puppet
+::mit_krb5::appdefaults { 'EXAMPLE.ORG':
+    forwardable => false
+}
+```
 
 # Limitations
 
 Configuration sections other than those listed above are not yet supported.
 This includes:
 
-- appdefaults
-- capaths
-- dbdefaults
-- dbmodules
-- login
-- plugins
+- `capaths`
+- `dbdefaults`
+- `dbmodules`
+- `login`
+- `plugins`
 
 Stub classes for those sections exist but will throw an error.
 
@@ -212,7 +268,10 @@ Stub classes for those sections exist but will throw an error.
 
 Apache License, Version 2.0
 
+# Contributors
+
+This module was initially created by Patrick Mooney (@pfmooney) and forked by CC-IN2P3 in Oct. 2014.
 
 # Development
 
-Please [report issues](https://github.com/pfmooney/puppet-mit_krb5) or [submit a pull request](https://github.com/pfmooney/puppet-mit_krb5/pulls).
+Please [report issues](https://github.com/ccin2p3/puppet-mit_krb5/issues) or [submit a pull request](https://github.com/ccin2p3/puppet-mit_krb5/pulls).

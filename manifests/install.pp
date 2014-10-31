@@ -9,6 +9,7 @@
 # === Copyright
 #
 # Copyright 2013 Patrick Mooney.
+# Copyright (c) IN2P3 Computing Centre, IN2P3, CNRS
 #
 class mit_krb5::install($packages = undef) {
   if $packages {

@@ -36,6 +36,19 @@
 #   the V5 realm are not the same, but still share the same principal names and
 #   passwords. The tag value is the Kerberos V4 realm name.
 #
+# [*v4_realm_convert*]
+#   Add a v4 realm convert, v4_name_convert, takes the following format => 
+#   v4_realm_convert => { host=> [ "TEST = host", "TEST1 = host], TEST2 => ["TEST4=host2"]} , to produce :
+#         v4_name_convert = {
+#            host = {
+#                TEST = host
+#		 TEST1 = host
+#            }
+#	     TEST2 = {
+#		 TEST4 = host2
+#	     }
+#        }
+#                                                   
 # [*auth_to_local_names*]
 #   This subsection allows you to set explicit mappings from principal names to
 #   local user names.  The tag is the mapping name, and the value is the
@@ -66,10 +79,13 @@
 # === Authors
 #
 # Patrick Mooney <patrick.f.mooney@gmail.com>
+# Hristo Mohamed <hristo.mohamed@gmail.com>
+# Remi Ferrand <remi.ferrand_at_cc.in2p3.fr>
 #
 # === Copyright
 #
 # Copyright 2013 Patrick Mooney.
+# Copyright (c) IN2P3 Computing Centre, IN2P3, CNRS
 #
 define mit_krb5::realm(
   $kdc                 = '',
@@ -80,8 +96,12 @@ define mit_krb5::realm(
   $v4_realm            = '',
   $auth_to_local_names = '',
   $auth_to_local       = '',
+  $kpasswd_server      = '',
+  $v4_realm_convert    = '',
 ) {
-  include mit_krb5
+
+  include ::mit_krb5
+
   ensure_resource('concat::fragment', 'mit_krb5::realm_header', {
     target  => $mit_krb5::krb5_conf_path,
     order   => '10realm_header',

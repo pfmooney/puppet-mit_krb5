@@ -231,12 +231,7 @@ The following `appdefaults` section
 ```
 [appdefaults]
     EXAMPLE.ORG = {
-        debug = 
-        ticket_lifetime = 
-        renew_lifetime = 
         forwardable = false
-        krb4_convert = 
-        ignore_afs = 
     }
 ```
 

@@ -80,10 +80,12 @@
 #
 # Patrick Mooney <patrick.f.mooney@gmail.com>
 # Hristo Mohamed <hristo.mohamed@gmail.com>
+# Remi Ferrand <remi.ferrand_at_cc.in2p3.fr>
 #
 # === Copyright
 #
 # Copyright 2013 Patrick Mooney.
+# Copyright (c) IN2P3 Computing Centre, IN2P3, CNRS
 #
 define mit_krb5::realm(
   $kdc                 = '',
@@ -97,7 +99,9 @@ define mit_krb5::realm(
   $kpasswd_server      = '',
   $v4_realm_convert    = '',
 ) {
-  include mit_krb5
+
+  include ::mit_krb5
+
   ensure_resource('concat::fragment', 'mit_krb5::realm_header', {
     target  => $mit_krb5::krb5_conf_path,
     order   => '10realm_header',

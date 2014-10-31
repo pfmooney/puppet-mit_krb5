@@ -14,7 +14,7 @@ scope_hash = scope.to_hash
 fields.each do |k|
   if scope_hash.include?(k)
     value = scope_hash[k]
-    output.push("#{k} = #{value}")
+    output.push("#{k} = #{value}") unless value.empty?
   end
 end
 -%>

@@ -19,8 +19,6 @@
 
 # Overview
 
-This Puppet module was originaly created by Patrick Mooney (https://github.com/pfmooney/puppet-mit_krb5). The module was forked by CC-IN2P3 because P. Mooney couldn't provide active support anylonger. Patches from HristoMohamed (https://github.com/pfmooney/puppet-mit_krb5/pull/3) were integrated in the new release.
-
 This Puppet module is designed to facilitate the installation and configuration of [MIT Kerberos](http://web.mit.edu/kerberos/).  The primary scope includes installing the user utilities (kinit, etc) on the system and populating krb5.conf with the appropriate sections.
 
 Other tasks such as setting up KDC services are **not covered**.

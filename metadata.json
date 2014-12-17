@@ -1,6 +1,6 @@
 {
   "name": "ccin2p3-mit_krb5",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "source": "https://github.com/ccin2p3/puppet-mit_krb5.git",
   "author": "Patrick Mooney <patrick.f.mooney@gmail.com>",
   "license": "Apache License, Version 2.0",

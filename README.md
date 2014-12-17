@@ -146,6 +146,10 @@ Top-level class that installs MIT Kerberos and controls krb5.conf file.  Class p
 - `krb5_conf_group` - Group of krb5.conf (default: root)
 - `krb5_conf_mode` - Mode of krb5.conf (default: 0444) 
 
+## System parameters
+
+- `alter_etc_services` - Should _kerberos_ udp and tcp entries be managed in `/etc/services` (default: `false`)
+
 ## mit\_krb5::install
 
 Class to install Kerberos client package(s).

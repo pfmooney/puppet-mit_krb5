@@ -8,7 +8,7 @@
 # === Parameters
 #
 # [*default_realm*]
-#   This relation identifies the default realm to be used in a client host’s
+#   This relation identifies the default realm to be used in a client host's
 #   Kerberos activity. (REQUIRED)
 #
 # [*default_keytab_name*]
@@ -50,15 +50,15 @@
 #
 # [*k5login_authoritative*]
 #   If the value of this relation is true (the default), principals must be
-#   listed in a local user’s k5login file to be granted login access, if a
+#   listed in a local user's k5login file to be granted login access, if a
 #   k5login file exists.  If the value of this relation is false, a principal
 #   may still be granted login access through other mechanisms even if a
 #   k5login file exists but does not list the principal.
 #
 # [*k5login_directory*]
-#   If set, the library will look for a local user’s k5login file within the
+#   If set, the library will look for a local user's k5login file within the
 #   named directory, with a filename corresponding to the local username.  If
-#   not set, the library will look for k5login files in the user’s home
+#   not set, the library will look for k5login files in the user's home
 #   directory, with the filename .k5login.  For security reasons, k5login files
 #   must be owned by the local user or by root.
 #
@@ -116,10 +116,10 @@
 #   of the preceding options are specified, this option has no effect.
 #
 # [*realm_try_domains*]
-#   Indicate whether a host’s domain components should be used to determine the
+#   Indicate whether a host's domain components should be used to determine the
 #   Kerberos realm of the host.  The value of this variable is an integer: -1
-#   means not to search, 0 means to try the host’s domain itself, 1 means to
-#   also try the domain’s immediate parent, and so forth.  The library’s usual
+#   means not to search, 0 means to try the host's domain itself, 1 means to
+#   also try the domain's immediate parent, and so forth.  The library's usual
 #   mechanism for locating Kerberos realms is used to determine whether a
 #   domain is a valid realm -- which may involve consulting DNS if
 #   dns_lookup_kdc is set.

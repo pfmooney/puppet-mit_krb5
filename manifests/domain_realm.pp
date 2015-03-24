@@ -48,7 +48,7 @@ define mit_krb5::domain_realm(
     })
     concat::fragment { "mit_krb5::domain_realm::${title}":
       target  => $mit_krb5::krb5_conf_path,
-      order   => "21realm::${realm}::${title}",
+      order   => "21realm-${realm}-${title}",
       content => template('mit_krb5/domain_realm.erb'),
     }
   }

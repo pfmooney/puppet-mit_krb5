@@ -109,7 +109,7 @@ define mit_krb5::realm(
   })
   concat::fragment { "mit_krb5::realm::${title}":
     target  => $mit_krb5::krb5_conf_path,
-    order   => "11realm::${title}",
+    order   => "11realm-${title}",
     content => template('mit_krb5/realm.erb'),
   }
 }

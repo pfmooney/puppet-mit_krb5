@@ -24,10 +24,12 @@
 # === Authors
 #
 # Patrick Mooney <patrick.f.mooney@gmail.com>
+# Remi Ferrand <remi.ferrand_at_cc.in2p3.fr>
 #
 # === Copyright
 #
 # Copyright 2013 Patrick Mooney.
+# Copyright (c) IN2P3 Computing Centre, IN2P3, CNRS
 #
 define mit_krb5::domain_realm(
   $domains,
@@ -35,7 +37,9 @@ define mit_krb5::domain_realm(
 ) {
   validate_array($domains)
   validate_string($realm)
-  include mit_krb5
+
+  include ::mit_krb5
+
   if count($domains) > 0 {
     ensure_resource('concat::fragment', 'mit_krb5::domain_realm_header', {
       target  => $mit_krb5::krb5_conf_path,
@@ -44,7 +48,7 @@ define mit_krb5::domain_realm(
     })
     concat::fragment { "mit_krb5::domain_realm::${title}":
       target  => $mit_krb5::krb5_conf_path,
-      order   => "21realm::${realm}::${title}",
+      order   => "21realm-${realm}-${title}",
       content => template('mit_krb5/domain_realm.erb'),
     }
   }

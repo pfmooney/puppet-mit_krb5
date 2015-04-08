@@ -191,6 +191,7 @@
 # === Copyright
 #
 # Copyright 2013 Patrick Mooney.
+# Copyright (c) IN2P3 Computing Centre, IN2P3, CNRS
 #
 class mit_krb5(
   $default_realm            = '',
@@ -227,6 +228,7 @@ class mit_krb5(
   $krb5_conf_owner          = 'root',
   $krb5_conf_group          = 'root',
   $krb5_conf_mode           = '0444',
+  $alter_etc_services       = false
 ) {
   # SECTION: Parameter validation {
   validate_string(
@@ -262,7 +264,15 @@ class mit_krb5(
 
   # SECTION: Resource creation {
   anchor { 'mit_krb5::begin': }
-  include mit_krb5::install
+
+  class { '::mit_krb5::install': }
+  
+  if ($alter_etc_services == true) {
+    class { '::mit_krb5::config::etc_services':
+      require => Class['::mit_krb5::install']
+    }
+  }
+
   concat { $krb5_conf_path:
     owner  => $krb5_conf_owner,
     group  => $krb5_conf_group,

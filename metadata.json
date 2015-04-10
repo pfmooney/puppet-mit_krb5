@@ -1,0 +1,22 @@
+{
+  "name": "ccin2p3-mit_krb5",
+  "version": "0.2.0",
+  "source": "https://github.com/ccin2p3/puppet-mit_krb5.git",
+  "author": "Patrick Mooney <patrick.f.mooney@gmail.com>",
+  "license": "Apache License, Version 2.0",
+  "summary": "Install and configure MIT Kerberos v5 client libraries",
+  "description": "Install and configure MIT Kerberos v5 (initial version from Patrick Mooney)",
+  "project_page": "https://github.com/ccin2p3/puppet-mit_krb5",
+  "issues_url": "https://github.com/ccin2p3/puppet-mit_krb5/issues",
+  "dependencies": [
+    { "name": "puppetlabs/concat", "version_requirement": "1.0.x" }, 
+    { "name": "puppetlabs/stdlib", "version_requirement": "3.x" }
+  ],
+  "tags": [
+    "kerberos",
+    "krb5",
+    "gssapi",
+    "mit",
+    "authentication"
+  ]
+}

@@ -190,7 +190,7 @@
 #
 # === Copyright
 #
-# Copyright 2013 Patrick Mooney.
+# Copyright 2015 Patrick Mooney.
 #
 class mit_krb5(
   $default_realm            = '',

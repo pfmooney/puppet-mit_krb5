@@ -69,7 +69,7 @@
 #
 # === Copyright
 #
-# Copyright 2013 Patrick Mooney.
+# Copyright 2015 Patrick Mooney.
 #
 define mit_krb5::realm(
   $kdc                 = '',
@@ -89,7 +89,7 @@ define mit_krb5::realm(
   })
   concat::fragment { "mit_krb5::realm::${title}":
     target  => $mit_krb5::krb5_conf_path,
-    order   => "11realm::${title}",
+    order   => "11realm_${title}",
     content => template('mit_krb5/realm.erb'),
   }
 }

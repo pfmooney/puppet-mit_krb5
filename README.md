@@ -18,7 +18,10 @@
 
 # Overview
 
-This Puppet module is designed to facilitate the installation and configuration of [MIT Kerberos](http://web.mit.edu/kerberos/).  The primary scope includes installing the user utilities (kinit, etc) on the system and populating krb5.conf with the appropriate sections.
+This Puppet module is designed to facilitate the installation and configuration
+of [MIT Kerberos](http://web.mit.edu/kerberos/).  The primary scope includes
+installing the user utilities (kinit, etc) on the system and populating
+krb5.conf with the appropriate sections.
 
 Other tasks such as setting up KDC services are **not covered**.
 
@@ -92,18 +95,20 @@ mit_krb5::realm { 'EXAMPLE.COM':
   kdc          => 'kerberos.example.com',
   admin_server => 'kerberos.example.com'
 }
-mit_krb5::domain_realm { 'INSECURE.LOCAL':
+mit_krb5::domain_realm { 'EXAMPLE.COM':
   domains => ['.example.com', 'example.com']
 }
 ```
 
 # Classes and Resources
 
-The module was structured into resources/classes that resemble the sections of krb5.conf.
+The module was structured into resources/classes that resemble the sections of
+krb5.conf.
 
 ## mit\_krb5
 
-Top-level class that installs MIT Kerberos and controls krb5.conf file.  Class parameters are used to define contents of \[libdefaults\] section.
+Top-level class that installs MIT Kerberos and controls krb5.conf file.  Class
+parameters are used to define contents of \[libdefaults\] section.
 
 ### Parameters from libdefaults section
 
@@ -143,7 +148,7 @@ Top-level class that installs MIT Kerberos and controls krb5.conf file.  Class p
 - krb5\_conf\_path - Path to krb5.conf (default: /etc/krb5.conf)
 - krb5\_conf\_owner - Owner of krb5.conf (default: root)
 - krb5\_conf\_group - Group of krb5.conf (default: root)
-- krb5\_conf\_mode - Mode of krb5.conf (default: 0444) 
+- krb5\_conf\_mode - Mode of krb5.conf (default: 0444)
 
 ## mit\_krb5::install
 
@@ -153,7 +158,7 @@ parameter, do so before declaring/including mit\_krb5 or use hiera.
 
 ### Parameters
 
-- packages - Override facter-derived defaults for Kerberos packages (default: undef) 
+- packages - Override facter-derived defaults for Kerberos packages (default: undef)
 
 ## mit\_krb5::realm
 
@@ -174,7 +179,7 @@ Realm name is specified by resource title
 
 ## mit\_krb5::logging
 
-Class to configure \[logging\] section 
+Class to configure \[logging\] section
 
 ### Parameters from logging section
 
@@ -215,4 +220,5 @@ Apache License, Version 2.0
 
 # Development
 
-Please [report issues](https://github.com/pfmooney/puppet-mit_krb5) or [submit a pull request](https://github.com/pfmooney/puppet-mit_krb5/pulls).
+Please [report issues](https://github.com/pfmooney/puppet-mit_krb5) or
+[submit a pull request](https://github.com/pfmooney/puppet-mit_krb5/pulls).

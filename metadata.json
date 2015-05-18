@@ -1,6 +1,6 @@
 {
   "name": "pfmooney-mit_krb5",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Patrick Mooney",
   "license": "Apache-2.0",
   "summary": "Install and configure MIT Kerberos v5",

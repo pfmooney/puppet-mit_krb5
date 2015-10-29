@@ -75,7 +75,7 @@ Yields the following krb5.conf:
     .insecure.local = INSECURE.LOCAL
 ```
 
-Code such at this would mimic the example file shipped with CentOS/RHEL:
+Code such as this would mimic the example file shipped with CentOS/RHEL:
 ```puppet
 class { 'mit_krb5::install': }
 class { 'mit_krb5':

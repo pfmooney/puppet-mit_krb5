@@ -46,6 +46,9 @@
 #   local user names.  It will be used if there is not an explicit mapping for
 #   the principal name that is being translated.  The possible values are:
 #
+# [*pkinit_anchors*]
+#   This relation allows you set the path of a certificate authority file. 
+#
 #   DB:<filename>
 #       The principal will be looked up in the database <filename>.  Support
 #       for this is not currently compiled in by default.
@@ -80,6 +83,7 @@ define mit_krb5::realm(
   $v4_realm            = '',
   $auth_to_local_names = '',
   $auth_to_local       = '',
+  $pkinit_anchors      = '',
 ) {
   include mit_krb5
   ensure_resource('concat::fragment', 'mit_krb5::realm_header', {

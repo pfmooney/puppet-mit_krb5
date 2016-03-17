@@ -56,6 +56,9 @@
 #       has more than one component or is not in the default realm, this rule
 #       is not applicable and the conversion will fail.
 #
+# [*pkinit_anchors*]
+#   This relation allows you set the path of a certificate authority file.
+#
 # === Examples
 #
 #  mit_krb5::realm { 'TEST.COM':
@@ -80,6 +83,7 @@ define mit_krb5::realm(
   $v4_realm            = '',
   $auth_to_local_names = '',
   $auth_to_local       = '',
+  $pkinit_anchors      = '',
 ) {
   include mit_krb5
   ensure_resource('concat::fragment', 'mit_krb5::realm_header', {

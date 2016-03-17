@@ -116,6 +116,7 @@ parameters are used to define contents of \[libdefaults\] section.
 - default\_keytab\_name
 - default\_tgs\_enctypes
 - default\_tkt\_enctypes
+- default\_ccache\_name
 - permitted\_enctypes
 - allow\_weak\_crypto
 - clockskew
@@ -176,6 +177,7 @@ Realm name is specified by resource title
 - v4\_realm
 - auth\_to\_local\_names
 - auth\_to\_local
+- pkinit\_anchors
 
 ## mit\_krb5::logging
 

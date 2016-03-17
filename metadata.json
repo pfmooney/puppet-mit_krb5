@@ -1,6 +1,6 @@
 {
   "name": "pfmooney-mit_krb5",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "Patrick Mooney",
   "license": "Apache-2.0",
   "summary": "Install and configure MIT Kerberos v5",
@@ -9,15 +9,23 @@
   "issues_url": "https://github.com/pfmooney/puppet-mit_krb5/issues",
   "tags": ["kerberos", "krb5"],
   "operatingsystem_support": [
-      {
-          "operatingsystem":"RedHat",
-          "operatingsystemrelease":[ "6.0" ]
-          },
-      {
-          "operatingsystem": "Ubuntu",
-          "operatingsystemrelease": [ "14.04" ]
-          }
-     ],
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [ "6", "7" ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [ "6", "7" ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "14.04", "15.04", "16.04" ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [ "7", "8" ]
+    }
+  ],
   "dependencies": [
       { "name": "puppetlabs/stdlib", "version_requirement": ">=4.0.0 <5.0.0" },
       { "name": "puppetlabs/concat", "version_requirement": ">=1.0.0 <3.0.0" }

@@ -169,6 +169,25 @@
 #   default value is the "krb5/plugins" subdirectory of the krb5 library
 #   directory.
 #
+# [*include*]
+#   The named file should be an absolute path, must exist and must be readable.
+#   Included profile files are syntactically independent of their parents, so
+#   each included file must begin with a section header.
+#
+# [*includedir*]
+#   The named directory should be an absolute path, must exist and must be
+#   readable.  Including a directory includes all files within the directory
+#   whose names consist solely of alphanumeric characters, dashes, or
+#   underscores. Included profile files are syntactically independent of their
+#   parents, so each included file must begin with a section header.
+#
+# [*module*]
+#   *MODULEPATH:RESIDUAL*
+#   MODULEPATH may be relative to the library path of the krb5 installation, or
+#   it may be an absolute path. RESIDUAL is provided to the module at
+#   initialization time. If krb5.conf uses a module directive, kdc.conf should
+#   also use one if it exists.
+#
 # [*krb5_conf_path*]
 #   Path to krb5.conf file.  (Default: /etc/krb5.conf)
 #
@@ -227,6 +246,9 @@ class mit_krb5(
   $proxiable                = '',
   $rdns                     = '',
   $plugin_base_dir          = '',
+  $include                  = '',
+  $includedir               = '',
+  $module                   = '',
   $krb5_conf_path           = '/etc/krb5.conf',
   $krb5_conf_owner          = 'root',
   $krb5_conf_group          = 'root',
@@ -272,6 +294,11 @@ class mit_krb5(
     owner  => $krb5_conf_owner,
     group  => $krb5_conf_group,
     mode   => $krb5_conf_mode,
+  }
+  concat::fragment { 'mit_krb5::header':
+    target  => $krb5_conf_path,
+    order   => '00header',
+    content => template('mit_krb5/header.erb'),
   }
   concat::fragment { 'mit_krb5::libdefaults':
     target  => $krb5_conf_path,

@@ -108,7 +108,14 @@ krb5.conf.
 ## mit\_krb5
 
 Top-level class that installs MIT Kerberos and controls krb5.conf file.  Class
-parameters are used to define contents of \[libdefaults\] section.
+parameters are used to define top-level directives and  contents of
+\[libdefaults\] section.
+
+### Top-level directives
+
+- include - (arrays allowed)
+- includedir - (arrays allowed)
+- module - (arrays allowed)
 
 ### Parameters from libdefaults section
 

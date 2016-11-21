@@ -170,6 +170,8 @@ Realm name is specified by resource title
 ### Parameters from realm section
 
 - kdc - (arrays allowed)
+- kpasswd\_server
+- master\_kdc
 - admin\_server - (arrays allowed)
 - database\_module
 - default\_domain

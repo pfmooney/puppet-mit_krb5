@@ -10,6 +10,18 @@
 #   the hostname.  This tag should generally be used only if the realm
 #   administrator has not made the information available through DNS.
 #
+# [*kpasswd_server*]
+#    Points to the server where all the password changes are performed. If
+#    there is no such entry, the port 464 on the admin_server host will be
+#    tried.
+#
+# [*master_kdc*]
+#   Identifies the master KDC(s). Currently, this tag is used in only one case:
+#   If an attempt to get credentials fails because of an invalid password, the
+#   client software will attempt to contact the master KDC, in case the user’s
+#   password has just been changed, and the updated database has not been
+#   propagated to the slave servers yet.
+#
 # [*admin_server*]
 #   This relation identifies the host where the administration server is
 #   running.  Typically this is the Master Kerberos server.
@@ -76,6 +88,8 @@
 #
 define mit_krb5::realm(
   $kdc                 = '',
+  $kpasswd_server      = '',
+  $master_kdc          = '',
   $admin_server        = '',
   $database_module     = '',
   $default_domain      = '',

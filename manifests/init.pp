@@ -98,6 +98,12 @@
 #   default value for this setting is "17, 16, 15, 14", which forces libkrb5 to
 #   attempt to use PKINIT if it is supported.
 #
+# [*canonicalize*]
+#   If this flag is set to true, initial ticket requests to the KDC will
+#   request canonicalization of the client principal name, and answers with
+#   different client principals than the requested principal will be accepted.
+#   The default value is false.
+#
 # [*ccache_type*]
 #   User this parameter on systems which are DCE clients, to specify the type
 #   of cache to be created by kinit, or hen forwarded tickets are received. DCE
@@ -213,6 +219,7 @@ class mit_krb5(
   $safe_checksum_type       = '',
   $preferred_preauth_types  = '',
   $ccache_type              = '',
+  $canonicalize             = '',
   $dns_lookup_kdc           = '',
   $dns_lookup_realm         = '',
   $dns_fallback             = '',

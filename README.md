@@ -129,6 +129,7 @@ parameters are used to define contents of \[libdefaults\] section.
 - safe\_checksum\_type
 - preferred\_preauth\_types
 - ccache\_type
+- canonicalize (mit_krb5 1.11+ - RHEL6 has 1.10)
 - dns\_lookup\_kdc
 - dns\_lookup\_realm
 - dns\_fallback
